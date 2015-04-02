@@ -15,13 +15,13 @@ var FluidNav = {
 		$("nav ul li").removeClass("current");
 		nav_item.parent().addClass("current");
 		FluidNav.resizePage((next_page.height() + 40), true, function() {
-			 $(".page").removeClass("current"); next_page.addClass("current"); 
+			 $(".page").removeClass("current"); next_page.addClass("current");
 		});
 		$(".page").fadeOut(500);
 		next_page.fadeIn(500);
-		
+
 		FluidNav.centerArrow(nav_item);
-		
+
 	},
 	centerArrow: function(nav_item, animate) {
 		var left_margin = (nav_item.parent().position().left + nav_item.parent().width()) + 24 - (nav_item.parent().width() / 2);
@@ -37,36 +37,36 @@ var FluidNav = {
 		if(size) { var new_size = size; } else { var new_size = $(".page.current").height() + 40; }
 		if(!callback) { callback = function(){}; }
 		if(animate) {
-			$("#pages").animate({ height: new_size }, 400, function() { callback.call(); }); 
+			$("#pages").animate({ height: new_size }, 400, function() { callback.call(); });
 		} else {
-			$("#pages").css({ height: new_size }); 
+			$("#pages").css({ height: new_size });
 		}
 	}
 };
 
 // Fix page height and nav on browser resize
-$(window).resize(function() { 
+$(window).resize(function() {
 		FluidNav.resizePage();
 		FluidNav.centerArrow($("nav ul li.current a"), false);
 });
 
 $(document).ready(function() {
-	
+
 	// Initialize navigation
 	FluidNav.init();
-	
+
 	// Home slider
 	$("#slider").echoSlider({
 		effect: "slide", // Default effect to use, supports: "slide" or "fade"
 		easing: true, // Easing effect for animations
 		pauseTime: 4000, // How long each slide will appear
-		animSpeed: 500, // Speed of slide animation 
+		animSpeed: 500, // Speed of slide animation
 		manualAdvance: false, // Force manual transitions
 		pauseOnHover: true, // Pause on mouse hover
 		controlNav: true, // Show slider navigation
 		swipeNav: true // Enable touch gestures to control slider
 	});
-	
+
 	// Drop down menus
 	$("header nav ul li").hover(function() {
 		if($(this).find("ul").size != 0) {
@@ -75,15 +75,15 @@ $(document).ready(function() {
 	}, function() {
 		$(this).find("ul:first").stop(true, true).fadeOut("fast");
 	});
-	
+
 	$("header nav ul li").each(function() {
 		$("ul li:last a", this).css({ 'border' : 'none' });
 	});
-	
+
 	// Enable mobile drop down navigation
 	$("header nav ul:first").mobileMenu();
-	
-	// Form hints	
+
+	// Form hints
 	$("label").inFieldLabels({ fadeOpacity: 0.4 });
 
 	$("nav select").change(function() {
@@ -93,18 +93,18 @@ $(document).ready(function() {
 			$("html,body").animate({ scrollTop:$('#'+page).offset().top }, 700);
 		}
 	});
-		
+
 	// Gallery hover
 	$(".screenshot_grid div").each(function() {
 		$("a", this).append('<span class="hover"></span>');
 	});
-	
+
 	$(".screenshot_grid div").hover(function() {
 		$("a", this).find(".hover").stop(true, true).fadeIn(400);
 	}, function() {
 		$("a", this).find(".hover").stop(true, true).fadeOut(400);
 	});
-	
+
 	$("a.fancybox").fancybox({
 		"transitionIn":			"elastic",
 		"transitionOut":		"elastic",
@@ -117,7 +117,7 @@ $(document).ready(function() {
 		"hideOnContentClick":	false,
 		"overlayShow":        false
 	});
-		
+
 	// Custom jQuery Tabs
 	$(".tabs").find(".pane:first").show().end().find("ul.nav li:first").addClass("current");
 	$(".tabs ul.nav li a").click(function() {
@@ -126,8 +126,8 @@ $(document).ready(function() {
 		$(this).parent().addClass("current");
 		$(".pane", tab_container).hide();
 		$("#"+$(this).attr("class")+".pane", tab_container).show();
-	});	
-		
+	});
+
 	// Toggle lists
 	$(".toggle_list ul li .title").click(function() {
 		var content_container = $(this).parent().find(".content");
@@ -143,17 +143,17 @@ $(document).ready(function() {
 			$(this).find("a.toggle_link").text($(this).find("a.toggle_link").data("close_text"));
 		}
 	});
-	
+
 	$(".toggle_list ul li .title").each(function() {
 		$(this).find("a.toggle_link").text($(this).find("a.toggle_link").data("open_text"));
 		if($(this).parent().hasClass("opened")) {
 			$(this).parent().find(".content").show();
 		}
 	});
-		
+
 	// Tooltips
 	$("a[rel=tipsy]").tipsy({fade: true, gravity: 's', offset: 5, html: true});
-	
+
 	$("ul.social li a").each(function() {
 		if($(this).attr("title")) {
 			var title_text = $(this).attr("title");
@@ -161,15 +161,15 @@ $(document).ready(function() {
 			var title_text = $(this).text();
 		}
 		$(this).tipsy({
-				fade: true, 
-				gravity: 'n', 
+				fade: true,
+				gravity: 'n',
 				offset: 5,
 				title: function() {
 					return title_text;
 				}
 		});
 	});
-	
+
 	// Contact form
 	$("div#contact_form form").submit(function() {
   	var this_form = $(this);
@@ -195,5 +195,4 @@ $(document).ready(function() {
   		}
   	});
   });
-	
 });
